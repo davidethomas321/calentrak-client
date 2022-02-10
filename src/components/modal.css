@@ -1,0 +1,114 @@
+.customModal {
+    border-radius: 8px;
+    padding: 25px !important;
+  }
+
+.modalContents {
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 1000px) {
+    #goal, #writeDate{
+        border: none;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        background-color: rgb(197, 200, 208);
+        height: 3em;
+        width: 500px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1000px) {
+    #goal, #writeDate {
+        border: none;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        background-color: rgb(197, 200, 208);
+        height: 2em;
+        width: 250px;
+    }
+}
+
+@media (min-width: 1000px) {
+    #description {
+        border: none;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        background-color: rgb(197, 200, 208);
+        height: 12em;
+        width: 500px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1000px) {
+    #description {
+        border: none;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        background-color: rgb(197, 200, 208);
+        height: 8em;
+        width: 250px;
+    }
+}
+
+@media (min-width: 1000px) {
+    #expense, #expenseAmt{
+        border: none;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        background-color: rgb(197, 200, 208);
+        height: 3em;
+        width: 500px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1000px) {
+    #expense, #expenseAmt {
+        border: none;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        background-color: rgb(197, 200, 208);
+        height: 2em;
+        width: 250px;
+    }
+}
+
+#deleteButton {
+    background-color: transparent;
+    color: black;
+    font-size: 15px;
+    font-weight: 800;
+    border: 3px solid black;
+    border-radius: 8px;
+    text-align: center;
+    padding: 4px 10px 4px 10px;
+}
+
+#updateButton {
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    background-color: black;
+    border: 3px solid black;
+    border-radius: 8px;
+    text-align: center;
+    padding: 4px 10px 4px 10px;
+}
+
+#updateButton:active {
+    transform: translateY(4px);
+}
+
+#deleteButton:active {
+    transform: translateY(4px);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+

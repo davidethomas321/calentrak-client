@@ -1,0 +1,79 @@
+.App {
+  width: 100vw;
+  height:  100vh;
+  display: flex;
+  position: relative;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+}
+
+.btn-toggle {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  background: #000000;
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  display: none;
+  margin: 10px 10px 10px 10px;
+}
+
+.menuItem {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  background-color: #000000;
+  color: #fff;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
+.menuItem:hover {
+  border: none;
+  background-color: rgb(77, 77, 77);
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+.menuItem:active {
+  border: none;
+  background-color: rgb(77, 77, 77);
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  transform: translateY(4px);
+}
+
+@media (max-width: 768px) {
+  .btn-toggle {
+    display: flex;
+  }
+}
+
+.addButton {
+  margin-left: 10px;
+  margin-bottom: 5px;
+  padding: 0;
+  border: 0;
+  vertical-align: middle;
+}
+
+.addButton:active {
+  transform: translateY(4px);
+}

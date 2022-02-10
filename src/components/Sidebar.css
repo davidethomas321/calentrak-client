@@ -1,0 +1,33 @@
+.logo {
+    font-size: 40px;
+    text-align: center;
+
+}
+
+.menuItem {
+    font-size: 20px;
+    font-weight: 350;
+}
+
+.exitButton {
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    border: 3px solid white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 8px 40px 8px 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.exitButton:active {
+    transform: translateY(4px);
+}
+
+.sideBar {
+    z-index: 900;
+}

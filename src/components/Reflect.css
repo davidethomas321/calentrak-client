@@ -1,0 +1,29 @@
+.goalPercentages {
+    background: rgb(2,0,36);
+    background: linear-gradient(129deg, rgba(2,0,36,1) 0%, rgba(61,34,13,1) 42%, rgba(47,130,147,1) 100%);
+    padding: 30px 30px 30px 30px;
+    text-align: center;
+    border-radius: 8px;
+    color: white;
+}
+
+.ReflectPage {
+    padding: 2vh 4vh 2vh 4vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.percentsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.percentBox {
+    padding: 0px 25px 0px 25px;
+    text-align: center;
+}
+
+.percent {
+    font-size: 40px;
+}

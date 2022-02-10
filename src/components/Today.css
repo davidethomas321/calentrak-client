@@ -1,0 +1,45 @@
+.todayPage {
+    padding: 2vh 4vh 2vh 4vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.Weather {
+    background: rgb(2,0,36);
+    background: linear-gradient(129deg, rgba(2,0,36,1) 0%, rgba(39,39,105,1) 42%, rgba(47,130,147,1) 100%);
+    border-radius: 8px;
+    padding: 20px 20px 20px 20px;
+    text-align: center;
+    color: white;
+}
+
+.weatherImg {
+    background-color: rgb(194, 194, 194);
+    border-radius: 8px;
+    height: 100px;
+    margin: 15px 5px 15px 5px;
+}
+
+.city {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.temp {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.weatherDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.loader {
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
