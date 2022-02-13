@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import { FaBars, FaPen } from 'react-icons/fa';
 import 'react-calendar/dist/Calendar.css';
 import './Plan.css';
 import ReactDOM from 'react-dom';
 import 'react-responsive-modal/styles.css';
+import ReactLoading from 'react-loading';
 import { Modal } from 'react-responsive-modal';
 import Sidebar from './Sidebar';
 import './modal.css'
@@ -14,11 +15,23 @@ const Plan: React.FunctionComponent = () => {
     const [value, onChange] = useState(new Date());
     const [openGoal, setOpenGoal] = useState(false);
     const [openExpense, setOpenExpense] = useState(false);
+    const [result, setResult] = useState<any>([])
 
     const onOpenModalGoal = () => setOpenGoal(true);
     const onOpenModalExpense = () => setOpenExpense(true);
     const onCloseModalGoal = () => setOpenGoal(false);
     const onCloseModalExpense = () => setOpenExpense(false);
+
+    const fetchQuote = async () => {
+        await fetch(`https://quotes.rest/qod?language=en`)
+        .then(res => res.json())
+        .then(result => {
+          setResult(result)
+          console.log(result.contents.quotes[0].quote);
+        });
+      }
+
+      useEffect(() =>{fetchQuote();},[])
 
     return (
         <>
@@ -27,6 +40,19 @@ const Plan: React.FunctionComponent = () => {
                 <FaBars />
             </div>
             <h1>Let's put some plans together!</h1>
+            {(result.contents != undefined) ? (
+                <div className='quoteContainer'>
+                    <p className='quote'>{result.contents.quotes[0].quote}</p>
+                    <p className='author'>- {result.contents.quotes[0].author}</p>
+                </div>
+            ) : (
+                    <div className="quoteContainer"> 
+                        <ReactLoading className='loader' type={'spokes'} color={'white'} height={100} width={100} />
+                        <h3>Grabbing today's quote...</h3>
+                    </div>
+                    
+            )}
+
             <div>
                 <Calendar onChange={onChange} value={value} />
             </div>

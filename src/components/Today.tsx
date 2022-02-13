@@ -11,7 +11,13 @@ import './Today.css';
 import Sidebar from './Sidebar';
 import './modal.css';
 
-class Today extends Component<{},{location:any,weatherResult:any,weatherDescription:string,openGoal:any,openExpense:any}> {
+class Today extends Component<{},{
+    location:any,
+    weatherResult:any,
+    weatherDescription:string,
+    openGoal:any,
+    openExpense:any
+}> {
 
     constructor(props:any) {
         super(props)
@@ -40,7 +46,7 @@ class Today extends Component<{},{location:any,weatherResult:any,weatherDescript
     onCloseModalGoal = () => this.setState({openGoal:false});
     onCloseModalExpense = () => this.setState({openExpense:false});
 
-    async fetchWeatherFahrenheit()  {
+        async fetchWeatherFahrenheit()  {
             let lat:number = this.state.location[0];
             let lon:number = this.state.location[1];
             let url:string = 'https://api.openweathermap.org/data/2.5';
@@ -54,7 +60,7 @@ class Today extends Component<{},{location:any,weatherResult:any,weatherDescript
             });
         }
 
-        componentWillMount(){
+        componentDidMount(){
             this.getLocation();
         }
 
