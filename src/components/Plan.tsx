@@ -35,6 +35,7 @@ const Plan: React.FunctionComponent = () => {
 
     return (
         <>
+        <Sidebar/>
         <div className='PlanPage'>
             <div className="btn-toggle">
                 <FaBars />

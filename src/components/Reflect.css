@@ -13,6 +13,12 @@
     flex-direction: column;
 }
 
+@media (min-width: 769px) {
+    .ReflectPage {
+        margin-left: 300px;
+    }
+}
+
 .percentsContainer {
     display: flex;
     flex-direction: row;

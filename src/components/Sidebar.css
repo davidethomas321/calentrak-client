@@ -1,3 +1,7 @@
+.sideBar {
+    position: fixed;
+}
+
 .logo {
     font-size: 40px;
     text-align: center;

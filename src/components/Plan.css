@@ -4,6 +4,12 @@
     flex-direction: column;
 }
 
+@media (min-width: 769px) {
+    .PlanPage {
+        margin-left: 300px;
+    }
+}
+
 .quoteContainer { 
     background: rgb(2,0,36);
     background: linear-gradient(129deg, rgba(2,0,36,1) 0%, rgba(61,13,25,1) 42%, rgba(47,130,147,1) 100%);

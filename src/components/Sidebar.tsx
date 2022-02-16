@@ -1,12 +1,22 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { ProSidebar, SidebarHeader, SidebarContent, Menu, MenuItem, SidebarFooter, ProSidebarProps } from 'react-pro-sidebar';
 import { Outlet, Link } from 'react-router-dom';
 import './Sidebar.scss';
 import './Sidebar.css';
 
 const Sidebar: React.FunctionComponent = ({collapsed, toggled}:ProSidebarProps, {handleToggleSidebar}) => {
+
+    const [sessionToken, setSessionToken] = useState<any>('')
+
+    const clearToken = () => {
+        localStorage.clear();
+        setSessionToken('');
+        window.location.href='/';
+        alert('Logged out, see you later!');
+    }
+
     return (
-        <>
+        <>  
             <ProSidebar
              collapsed={collapsed}
              toggled={toggled}
@@ -25,7 +35,7 @@ const Sidebar: React.FunctionComponent = ({collapsed, toggled}:ProSidebarProps, 
                     </Menu>
                 </SidebarContent>
                 <SidebarFooter>
-                    <button className='exitButton'>EXIT</button>
+                    <button onClick={clearToken} className='exitButton'>EXIT</button>
                 </SidebarFooter>
             </ProSidebar>
         </>

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
+import Sidebar from './Sidebar';
 import './Reflect.css';
 
 const Reflect: React.FunctionComponent = () => {
     return (
         <>
+                <Sidebar/>
         <div className='ReflectPage'>
             <div className="btn-toggle">
                 <FaBars />
