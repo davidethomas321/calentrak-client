@@ -61,7 +61,7 @@ export default class Login extends Component<any,any> {
         console.log(this.props)
     return(
         <>
-        <div className='container'>
+        <div className='box'>
             <div className='background' style={{  
                 backgroundImage: `url(${this.state.result})`,
                 backgroundPosition: 'center',

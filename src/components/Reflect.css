@@ -5,12 +5,14 @@
     text-align: center;
     border-radius: 8px;
     color: white;
+    max-width: 600px;
 }
 
 .ReflectPage {
     padding: 2vh 4vh 2vh 4vh;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 @media (min-width: 769px) {
@@ -23,6 +25,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .percentBox {

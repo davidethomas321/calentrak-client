@@ -24,7 +24,6 @@ const App: React.FunctionComponent = () => {
   }
 
   useEffect(() => {
-    console.log('fired')
     if (localStorage.getItem('token')){
       setSessionToken(localStorage.getItem('token'));
     }
@@ -39,7 +38,7 @@ const App: React.FunctionComponent = () => {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Login/>} />
+          <Route path='/' element={<Login {...tokenProp}/>} />
           <Route path='/Login' element={<Login {...tokenProp}/>} />
           <Route path='/ForgotPassword' element={<ForgotPassword/>} />
           <Route path='/Signup' element={<Signup updateToken={updateToken}/>}/>

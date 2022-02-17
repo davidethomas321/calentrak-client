@@ -2,6 +2,8 @@
     padding: 2vh 4vh 2vh 4vh;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    margin-right: 10px;
 }
 
 @media (min-width: 769px) {
@@ -17,6 +19,7 @@
     padding: 20px 20px 20px 20px;
     text-align: center;
     color: white;
+    max-width: 600px;
 }
 
 .weatherImg {
@@ -48,4 +51,18 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+}
+
+.updateBtn {
+    background: none;
+    border: none;
+    font-size: large;
+}
+
+.updateBtn:hover {
+    font-weight: 600;
+}
+
+.updateBtn:active {
+    transform: translateY(2px);
 }

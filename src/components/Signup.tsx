@@ -81,7 +81,7 @@ export default class Signup extends Component<any,any> {
                 <p id='ques'>What's your...</p>
                 <div className='form'>
                     <input onChange={(e) => this.setState({fullname:e.target.value})} value={this.state.fullname} type='text' id='email' name='fullName' placeholder='  Full Name?' /><br/>
-                    <input onChange={(e) => this.setState({email:e.target.value})} value={this.state.email} type='email' id='email' name='email' placeholder='  Email?' /><br/>
+                    <input onChange={(e) => this.setState({email:e.target.value})} value={this.state.email} type='text' id='email' name='email' placeholder='  Email?' /><br/>
                     <input onChange={(e) => this.setState({password:e.target.value})} value={this.state.password} id='password' type="password" placeholder='  Password?'/><br/>
                     <input onChange={(e) => this.setState({favthing:e.target.value})} value={this.state.favthing} id='password' type="text" placeholder='  Favorite Thing?'></input>
                     <br/>

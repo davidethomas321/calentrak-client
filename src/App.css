@@ -78,4 +78,36 @@ body {
   transform: translateY(4px);
 }
 
+th {
+  text-align: left;
+  border-bottom: 1pt solid black;
+  font-size: 20px;
+}
 
+tr:nth-child(even) {background-color: #c4c4c4;}
+
+.theTable {
+  border-collapse: collapse;
+  max-width: 1000px;
+}
+
+th, td {
+  padding: 10px;
+}
+
+.doneButton {
+  background-color: transparent;
+  color: white;
+  font-size: 15px;
+  font-weight: 800;
+  background-color: black;
+  border: 3px solid black;
+  border-radius: 8px;
+  text-align: center;
+  padding: 4px 10px 4px 10px;
+  width: 100px;
+}
+
+.doneButton:active {
+  transform: translateY(2px);
+}

@@ -42,12 +42,12 @@ const Plan: React.FunctionComponent = () => {
             </div>
             <h1>Let's put some plans together!</h1>
             {(result.contents != undefined) ? (
-                <div className='quoteContainer'>
+                <div className='quoteBox'>
                     <p className='quote'>{result.contents.quotes[0].quote}</p>
                     <p className='author'>- {result.contents.quotes[0].author}</p>
                 </div>
             ) : (
-                    <div className="quoteContainer"> 
+                    <div className="quoteBox"> 
                         <ReactLoading className='loader' type={'spokes'} color={'white'} height={100} width={100} />
                         <h3>Grabbing today's quote...</h3>
                     </div>
@@ -62,7 +62,7 @@ const Plan: React.FunctionComponent = () => {
                     <div className='modalContents'>
                         <h2>What's your goal?</h2>
                         <input type='text' id='goal' name='goal' placeholder='Goal'></input>
-                        <input type='date' id='writeDate' name='writeDate'></input>
+                        <input type='text' id='writeDate' name='writeDate' placeholder='MM/DD/YYYY'></input>
                         <textarea id='description' name='description cols="50" rows="10"' placeholder='Description'></textarea>
                     </div>
                     <div className='buttons'>
@@ -76,7 +76,7 @@ const Plan: React.FunctionComponent = () => {
                     <div className='modalContents'>
                         <h2>What's your expense?</h2>
                         <input type='text' id='expense' name='expense' placeholder='Expense'></input>
-                        <input type='date' id='writeDate' name='writeDate'></input>
+                        <input type='text' id='writeDate' name='writeDate' placeholder='MM/DD/YYYY'></input>
                         <input type='number' id='expenseAmt' name='expenseAmt' min='1' step='any'  placeholder='$ 0.00'></input>
                     </div>
                     <div className='buttons'>
