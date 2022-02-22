@@ -67,7 +67,7 @@ export default class Signup extends Component<any,any> {
         console.log(this.props.updateToken)
     return(
         <>
-        <div className='container'>
+        <div className='box'>
             <div className='background' style={{  
                 backgroundImage: `url(${this.state.result})`,
                 backgroundPosition: 'center',

@@ -11,7 +11,7 @@ import Today from './components/Today';
 import Plan from './components/Plan';
 import Reflect from './components/Reflect';
 import Signup from './components/Signup';
-import ForgotPassword from './components/ForgotPassword';
+import Admin from './components/Admin';
 
 const App: React.FunctionComponent = () => {
 
@@ -40,11 +40,11 @@ const App: React.FunctionComponent = () => {
         <Routes>
           <Route path='/' element={<Login {...tokenProp}/>} />
           <Route path='/Login' element={<Login {...tokenProp}/>} />
-          <Route path='/ForgotPassword' element={<ForgotPassword/>} />
           <Route path='/Signup' element={<Signup updateToken={updateToken}/>}/>
           <Route path='/Today' element={<Today token={sessionToken}/> } />
           <Route path='/Plan' element={<Plan />} />
           <Route path='/Reflect' element={<Reflect/>} />
+          <Route path='/Admin' element={<Admin/>} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -32,6 +32,7 @@ const Sidebar: React.FunctionComponent = ({collapsed, toggled}:ProSidebarProps, 
                         <MenuItem><button className='menuItem'><Link to="/Today"/>TODAY</button></MenuItem>
                         <MenuItem><button className='menuItem'><Link to="/Plan"/>PLAN</button></MenuItem>
                         <MenuItem><button className='menuItem'><Link to="/Reflect"/>REFLECT</button></MenuItem>
+                        <MenuItem><button className='menuItem'><Link to="/Admin"/>ADMIN</button></MenuItem>
                     </Menu>
                 </SidebarContent>
                 <SidebarFooter>

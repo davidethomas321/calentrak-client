@@ -76,9 +76,7 @@ export default class Login extends Component<any,any> {
                     <input onChange={(e) => this.setState({email:e.target.value})} value={this.state.email} type='email' id='email' name='goal' placeholder='  yourEmail@here.com' />
                     <input onChange={(e) => this.setState({password:e.target.value})} value={this.state.password} id='password' type="password" placeholder='  p@s$wordHere'/>
                     <br/>
-                    <div className='forgotPass'>
-                        <Link to={"/ForgotPassword"}>Forgot Password?</Link>
-                    </div>
+                    <br/>
                     <div className='loginButtons'>
                         <br />
                         <button onClick={this.handleSubmit} id='enterButton'>ENTER</button>

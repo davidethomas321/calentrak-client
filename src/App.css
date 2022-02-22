@@ -95,7 +95,7 @@ th, td {
   padding: 10px;
 }
 
-.doneButton {
+.notDoneButton {
   background-color: transparent;
   color: white;
   font-size: 15px;
@@ -108,6 +108,31 @@ th, td {
   width: 100px;
 }
 
+.notDoneButton:active {
+  transform: translateY(2px);
+}
+
+.doneButton {
+  background-color: transparent;
+  color: black;
+  font-size: 15px;
+  font-weight: 800;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 8px;
+  text-align: center;
+  padding: 4px 10px 4px 10px;
+  width: 100px;
+}
+
 .doneButton:active {
   transform: translateY(2px);
+}
+
+.buttonColumn {
+  width: 120px;
+}
+
+.dateColumn {
+  width: 100px;
 }

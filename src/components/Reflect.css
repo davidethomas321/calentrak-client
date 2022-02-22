@@ -36,3 +36,75 @@
 .percent {
     font-size: 40px;
 }
+
+.theTable2 {
+    border-collapse: collapse;
+    width: 400px !important;
+  }
+
+.searchBlock {
+    display: flex;
+    justify-content: row;
+    flex-wrap: wrap;
+}
+
+.searchInput1 {
+    height: 35px;
+    border-radius: 8px;
+    max-width:200px;
+    margin-right: 15px;
+    background-color: rgb(197, 200, 208);
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.searchInput2 {
+    height: 35px;
+    border-radius: 8px;
+    max-width:200px;
+    margin-right: 30px;
+    background-color: rgb(197, 200, 208);
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+
+.viewButton {
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+    font-weight: 800;
+    background-color: black;
+    border: 3px solid black;
+    border-radius: 8px;
+    text-align: center;
+    padding: 4px 10px 4px 10px;
+    width: 100px;
+    margin-right: 15px;
+  }
+  
+  .viewButton:active {
+    transform: translateY(2px);
+  }
+  
+  .allButton {
+    background-color: transparent;
+    color: black;
+    font-size: 15px;
+    font-weight: 800;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 8px;
+    text-align: center;
+    padding: 4px 10px 4px 10px;
+    width: 100px;
+  }
+  
+  .allButton:active {
+    transform: translateY(2px);
+  }
+
+  .buttonColumn {
+      width: 120px;
+  }

@@ -4,10 +4,10 @@ import Radium from 'radium';
 import { ReactDOM } from 'react';
 import Calendar from 'react-calendar';
 import { Component } from 'react';
-import { FaBars, FaPen } from 'react-icons/fa';
+import { FaBars, FaPen, FaCheck } from 'react-icons/fa';
 import { Modal } from 'react-responsive-modal';
 import ReactLoading from 'react-loading';
-import { Container, Row, Col, Table, Button } from 'reactstrap';
+import { Table } from 'reactstrap';
 import './Today.css';
 import Sidebar from './Sidebar';
 import {Link} from 'react-router-dom';
@@ -25,12 +25,24 @@ class Today extends Component<{token:any},{
     goal:string,
     description:string,
     writeDate:any
+    isDone:boolean
 
     goalUpdate:string
     descriptionUpdate:string
     writeDateUpdate: any
-    updateActive:boolean
+    updateActiveGoal:boolean
+    updateActiveExpense:boolean
     goalToUpdate:any
+    isDoneUpdate:any
+
+    expenses:any
+    expense:string
+    amount:any
+    expenseUpdate:string
+    amountUpdate:string
+    expenseToUpdate:any
+    isPaid:any
+    isPaidUpdate:any
 }> {
 
     constructor(props:any) {
@@ -46,12 +58,24 @@ class Today extends Component<{token:any},{
             goal:'',
             description: '',
             writeDate:'',
+            isDone:false,
 
             goalUpdate:'',
             descriptionUpdate:'',
             writeDateUpdate:'',
-            updateActive:false,
-            goalToUpdate: {}
+            updateActiveGoal:false,
+            updateActiveExpense:false,
+            goalToUpdate: {},
+            isDoneUpdate: false,
+
+            expenses:[],
+            expense:'',
+            amount:'',
+            expenseUpdate:'',
+            expenseToUpdate:{},
+            amountUpdate:'',
+            isPaid:false,
+            isPaidUpdate: false
         }
     };
         
@@ -71,14 +95,28 @@ class Today extends Component<{token:any},{
     onCloseModalGoal = () => this.setState({openGoal:false});
     onCloseModalExpense = () => this.setState({openExpense:false});
 
-    updateOn = () => this.setState({updateActive:true})
-    updateOff = () => this.setState({updateActive:false});
+    updateOnGoal = () => this.setState({updateActiveGoal:true})
+    updateOffGoal = () => this.setState({updateActiveGoal:false});
+    updateOnExpense = () => this.setState({updateActiveExpense:true})
+    updateOffExpense = () => this.setState({updateActiveExpense:false});
+
     editUpdateGoal = (goal:any) => {
         this.setState({
             goalToUpdate:goal, 
             goalUpdate:goal.goal, 
             descriptionUpdate:goal.description,
-            writeDateUpdate:goal.writeDate
+            writeDateUpdate:goal.writeDate,
+            isDoneUpdate:goal.isDone
+        });
+    };
+
+    editUpdateExpense = (expense:any) => {
+        this.setState({
+            expenseToUpdate:expense, 
+            expenseUpdate:expense.expense, 
+            amountUpdate:expense.amount,
+            writeDateUpdate:expense.writeDate,
+            isPaidUpdate:expense.isPaid
         });
     };
 
@@ -98,9 +136,10 @@ class Today extends Component<{token:any},{
     componentDidMount(){
         this.getLocation();
         this.fetchGoals();
+        this.fetchExpenses();
         console.log(this.props.token)
     }
-
+    
     fetchGoals = () => {
         const today = `${this.state.today.getMonth()+1}-${this.state.today.getDate()}-${this.state.today.getFullYear()}`
 
@@ -146,13 +185,13 @@ class Today extends Component<{token:any},{
                 'Authorization': 'Bearer '+ localStorage.getItem('token')
             })
         })
-        .then( this.fetchGoals)
-        alert('Goal Deleted')
+        .then( this.fetchGoals);
+        alert('Goal Deleted');
+        this.setState({updateActiveGoal:false})
+        this.updateOffGoal()
     }
 
-    updateGoal = (event:any, goal:any) => {
-        console.log('fire')
-        event.preventDefault();
+    updateGoal = (goal:any) => {
         fetch(`http://localhost:5000/goals/updateGoal/${goal.idNumber}`, {
             method: 'PUT',
             body: JSON.stringify({goal: {goal:this.state.goalUpdate, writeDate:this.state.writeDateUpdate, description:this.state.descriptionUpdate}}),
@@ -163,12 +202,133 @@ class Today extends Component<{token:any},{
         }) .then((res) => {
             this.fetchGoals();
             alert('Goal updated!');
-            this.updateOff()
+            this.updateOffGoal()
         })
     }
 
+    isDone = (goal:any) => {
+        fetch(`http://localhost:5000/goals/updateGoalisDone/${goal.idNumber}`, {
+            method: 'PUT',
+            body: JSON.stringify({goal: {isDone:true}}),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            })
+        }) .then((res) => {
+            this.fetchGoals();
+        })
+    }
+
+    notDone = (goal:any) => {
+        fetch(`http://localhost:5000/goals/updateGoalisDone/${goal.idNumber}`, {
+            method: 'PUT',
+            body: JSON.stringify({goal: {isDone:false}}),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            })
+        }) .then((res) => {
+            this.fetchGoals();
+        })
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    fetchExpenses = () => {
+        const today = `${this.state.today.getMonth()+1}-${this.state.today.getDate()}-${this.state.today.getFullYear()}`
+
+        fetch(`http://localhost:5000/expenses/eDaySelect/${today}`, {
+            method: 'GET',
+            headers: new Headers ({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('token') 
+            })
+        }) .then ((res) => res.json())
+        .then((dataExpenses) => {
+            this.setState({expenses:dataExpenses})
+            console.log(this.state.expenses+'expenses')
+        })
+    }
+
+    addExpense = (e:any) => {
+        e.preventDefault();
+        fetch(`http://localhost:5000/expenses/addExpense`, {
+            method: 'POST',
+            body: JSON.stringify({expense: {expense:this.state.expense, amount:this.state.amount, writeDate:this.state.writeDate}}),
+            headers: new Headers ({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('token') 
+            })
+        }) .then ((res) => res.json())
+        .then((logExpense) => {
+            console.log(logExpense);
+            this.setState({expense:''});
+            this.setState({amount:''});
+            this.setState({writeDate:''});
+            this.setState({openExpense:false})
+            this.fetchExpenses();
+            alert('Expense Added!')
+        })
+    }
+
+    deleteExpense = (expense:any) => {
+        fetch(`http://localhost:5000/expenses/deleteExpense/${expense.idNumber}`, {
+            method: 'DELETE',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            })
+        })
+        .then( this.fetchExpenses);
+        alert('Expense Deleted');
+        this.setState({updateActiveGoal:false});
+        this.updateOffExpense()
+    }
+
+    updateExpense = (expense:any) => {
+        fetch(`http://localhost:5000/expenses/updateExpense/${expense.idNumber}`, {
+            method: 'PUT',
+            body: JSON.stringify({expense: {expense:this.state.expenseUpdate, writeDate:this.state.writeDateUpdate, amount:this.state.amountUpdate}}),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            })
+        }) .then((res) => {
+            this.fetchExpenses();
+            alert('Expense updated!');
+            this.updateOffExpense()
+        })
+    }
+
+    isPaid = (expense:any) => {
+        fetch(`http://localhost:5000/expenses/updateExpenseIsPaid/${expense.idNumber}`, {
+            method: 'PUT',
+            body: JSON.stringify({expense: {isPaid:true}}),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            })
+        }) .then((res) => {
+            this.fetchExpenses();
+        })
+    }
+
+    notPaid = (expense:any) => {
+        fetch(`http://localhost:5000/expenses/updateExpenseIsPaid/${expense.idNumber}`, {
+            method: 'PUT',
+            body: JSON.stringify({expense: {isPaid:false}}),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ localStorage.getItem('token')
+            })
+        }) .then((res) => {
+            this.fetchExpenses();
+        })
+    }
+
+
+
     render() {
-        console.log(this.state.goalToUpdate)
         return (
             <>
             <div className='sidebarDiv'> 
@@ -197,27 +357,25 @@ class Today extends Component<{token:any},{
                 </div>
                 )}
                 <h1>Goals<button onClick={this.onOpenModalGoal} className='addButton'><FaPen size={30}/></button></h1>
-                <Table className='theTable'>
-                    <thead>
-                        <tr>
-                            <th>GOAL</th>
-                            <th>DESCRIPTION</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.goals.map((goal:any, index:any) => {
-                            return(
-                                <tr key={index}>
-                                    <td><b><button className='updateBtn'onClick={() => {this.updateOn(); this.editUpdateGoal(goal) }}>{goal.goal}</button></b></td>
-                                    <td>{goal.description}</td>
-                                    <td><button className='doneButton'>Done?</button></td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </Table>
-                
+                {(this.state.goals.length == 0)
+                    ?(<h2 id='placeholder'><i>No goals listed for today. Let's get started!</i></h2>)
+                    :(<Table className='theTable'>
+                        <tbody>
+                            {this.state.goals.map((goal:any, index:any) => {
+                                return(
+                                    <tr key={index}>
+                                        <td><b><button className='updateBtn'onClick={() => {this.updateOnGoal(); this.editUpdateGoal(goal) }}>{goal.goal}</button></b></td>
+                                        <td>{goal.description}</td>
+                                        <td className='buttonColumn'>
+                                            {(goal.isDone == true)
+                                                ? (<button className='doneButton'onClick={() => {this.editUpdateGoal(goal); this.notDone(goal) }}><FaCheck/></button>)
+                                                : (<button className='notDoneButton'onClick={() => {this.editUpdateGoal(goal); this.isDone(goal) }}>Done?</button>)}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </Table>)}
                 <Modal open={this.state.openGoal} onClose={this.onCloseModalGoal} center classNames={{modal: 'customModal',}}>
                     <div className='modalContents'>
                         <h2>What's your goal?</h2>
@@ -232,19 +390,41 @@ class Today extends Component<{token:any},{
                 </Modal>
                 <br />
                 <h1>Expenses<button onClick={this.onOpenModalExpense} className='addButton'><FaPen size={30}/></button></h1>
+
+                {(this.state.expenses.length == 0)
+                    ?(<h2 id='placeholder'><i>No expenses listed for today.</i></h2>)
+                    :(<Table className='theTable'>
+                        <tbody>
+                            {this.state.expenses.map((expense:any, index:any) => {
+                                return(
+                                    <tr key={index}>
+                                        <td><b><button className='updateBtn'onClick={() => {this.updateOnExpense(); this.editUpdateExpense(expense) }}>{expense.expense}</button></b></td>
+                                        <td>$ {expense.amount}</td>
+                                        <td className='buttonColumn'>
+                                            {(expense.isPaid == true)
+                                                ? (<button className='doneButton'onClick={() => {this.editUpdateExpense(expense); this.notPaid(expense) }}><FaCheck/></button>)
+                                                : (<button className='notDoneButton'onClick={() => {this.editUpdateExpense(expense); this.isPaid(expense) }}>Paid?</button>)}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </Table>)}
+                    <br/>
+                    <br/>
                 <Modal open={this.state.openExpense} onClose={this.onCloseModalExpense} center classNames={{modal: 'customModal',}}>
                     <div className='modalContents'>
                         <h2>What's your expense?</h2>
-                        <input type='text' id='expense' name='expense' placeholder='Expense'></input>
-                        <input type='text' id='writeDate' name='writeDate' placeholder='MM/DD/YYYY'></input>
-                        <input type='number' id='expenseAmt' name='expenseAmt' min='1' step='any'  placeholder='$ 0.00'></input>
+                        <input value={this.state.expense} onChange={(e) => this.setState({expense:e.target.value})} type='text' id='expense' name='expense' placeholder='Expense'></input>
+                        <input value={this.state.writeDate} onChange={(e) => this.setState({writeDate:e.target.value})} type='text' id='writeDate' name='writeDate' placeholder='MM/DD/YYYY'></input>
+                        <input value={this.state.amount} onChange={(e) => this.setState({amount:e.target.value})} type='number' id='expenseAmt' name='expenseAmt' min='1' step='any'  placeholder='$ 0.00'></input>
                     </div>
                     <div className='buttons'>
-                        <button id='deleteButton'>DELETE</button>
-                        <button id='updateButton'>UPDATE</button>
+                        <button id='deleteButton' onClick={this.onCloseModalExpense}>CANCEL</button>
+                        <button id='updateButton' onClick={this.addExpense}>UPDATE</button>
                     </div>
                 </Modal>
-                <Modal open={this.state.updateActive} onClose={this.updateOff} center classNames={{modal: 'customModal',}}>
+                <Modal open={this.state.updateActiveGoal} onClose={this.updateOffGoal} center classNames={{modal: 'customModal',}}>
                     <div className='modalContents'>
                         <h2>Let's do an edit</h2>
                         <input value={this.state.goalUpdate} onChange={(e) => this.setState({goalUpdate:e.target.value})} type='text' id='goal' name='goal' placeholder='New Goal' ></input>
@@ -252,7 +432,18 @@ class Today extends Component<{token:any},{
                     </div>
                     <div className='buttons'>
                         <button id='deleteButton' onClick={() => this.deleteGoal(this.state.goalToUpdate)}>DELETE</button>
-                        <button id='updateButton' onClick={() => this.updateGoal}>UPDATE</button>
+                        <button id='updateButton' onClick={() => this.updateGoal(this.state.goalToUpdate)}>UPDATE</button>
+                    </div>
+                </Modal>
+                <Modal open={this.state.updateActiveExpense} onClose={this.updateOffExpense} center classNames={{modal: 'customModal',}}>
+                    <div className='modalContents'>
+                        <h2>Let's do an edit</h2>
+                        <input value={this.state.expenseUpdate} onChange={(e) => this.setState({expenseUpdate:e.target.value})} type='text' id='expense' name='expense' placeholder='New Expense' ></input>
+                        <input value={this.state.amountUpdate} onChange={(e) => this.setState({amountUpdate:e.target.value})} id='expense' name='description cols="50" rows="10"' placeholder='New Amount' ></input>
+                    </div>
+                    <div className='buttons'>
+                        <button id='deleteButton' onClick={() => this.deleteExpense(this.state.expenseToUpdate)}>DELETE</button>
+                        <button id='updateButton' onClick={() => this.updateExpense(this.state.expenseToUpdate)}>UPDATE</button>
                     </div>
                 </Modal>
             </div>

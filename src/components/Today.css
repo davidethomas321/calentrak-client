@@ -66,3 +66,7 @@
 .updateBtn:active {
     transform: translateY(2px);
 }
+
+#placeholder {
+    font-weight: 350;
+}
